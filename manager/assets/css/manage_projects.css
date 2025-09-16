@@ -1,0 +1,57 @@
+#btnAddProject {
+    background: var(--primary);
+    color: #fff;
+}
+
+.search-input {
+    min-width: 240px;
+}
+
+.project-name {
+    color: #2b2b2b;
+}
+
+.tooltip-cursor {
+    cursor: help;
+}
+
+.delete-project-form {
+    display: inline-block;
+}
+
+.hidden-form {
+    display: none;
+}
+
+.tab-content-scrollable {
+    max-height: 260px;
+    overflow: auto;
+}
+
+.ap-sticky-sub {
+    top: 0;
+}
+
+.filter-input {
+    max-width: 260px;
+}
+
+.ap-modal {
+    
+}
+
+.ap-section {
+    
+}
+
+.ap-heading {
+    
+}
+
+.ap-checklist {
+    
+}
+
+.ap-accordion-btn {
+    
+}
