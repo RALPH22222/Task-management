@@ -90,16 +90,41 @@
       cursor: pointer;
     }
 
+    /* Animated helpers */
+    @keyframes fadeUp { 
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* subtle hover lift for feature/developer cards */
+    .feature-card, .developer-card, .step {
+      will-change: transform, box-shadow;
+      transition: transform 260ms cubic-bezier(.2,.9,.3,1), box-shadow 260ms ease;
+    }
+
     .hero {
       background: linear-gradient(
         rgba(139,44,44,0.85),
         rgba(139,44,44,0.85)
-      ), url('https://scontent.fdvo2-1.fna.fbcdn.net/v/t39.30808-6/502463823_988564890126093_3859528677761531258_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFSxz1fy5JE0tDEGfxT2pFAI2X2Z9RpET8jZfZn1GkRP7DwbRMYnHnSiCJFiciDPMdjamfTDjJouoYWrLWgPxlD&_nc_ohc=MzEYlpugmBcQ7kNvwHVxulu&_nc_oc=Adm93dPTo5lpJv1OQb2BF9TFgWormZHwTWV6EoCG4H347rcD6mh2ByBOcc1ATFyYLEE&_nc_zt=23&_nc_ht=scontent.fdvo2-1.fna&_nc_gid=n_oPJvxRtcSKWdqj1mHM7g&oh=00_AfZbMRd-m7U-qAhrRb4vE6_TcAonY-1AhkCAc_8t_6J3cw&oe=68C9DD14') center/cover no-repeat;
+      ), url('https://scontent.fcgy1-3.fna.fbcdn.net/v/t39.30808-6/502463823_988564890126093_3859528677761531258_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFSxz1fy5JE0tDEGfxT2pFAI2X2Z9RpET8jZfZn1GkRP7DwbRMYnHnSiCJFiciDPMdjamfTDjJouoYWrLWgPxlD&_nc_ohc=DCAt-zzSWYQQ7kNvwFLz7d5&_nc_oc=AdnGALxDurO-CiN_nUR-5et42gysm_NLXDEbKnudBNd04dslo-m6yQOH_jdntqX7MlU&_nc_zt=23&_nc_ht=scontent.fcgy1-3.fna&_nc_gid=GztB-Hv-9vh9fPidrWlieg&oh=00_Afatxu7iRkhm124bAFNkrRXJdPvwPfHUXDFuFzzl2KByIg&oe=68CFCBD4') center/cover no-repeat;
       color: white;
       text-align: center;
       padding: 6rem 2rem;
       position: relative;
     }
+
+/* hero animation */
+.hero-content { opacity: 0; transform: translateY(12px); animation: fadeUp 700ms ease forwards; animation-delay: 200ms; }
 
     .hero-content {
       max-width: 800px;
@@ -201,6 +226,10 @@
       box-shadow: 0 15px 30px var(--shadow);
     }
 
+    /* Feature card entrance stagger */
+    .feature-grid .feature-card { opacity: 0; transform: translateY(14px); }
+    .feature-grid .feature-card.visible { opacity: 1; transform: translateY(0); transition: all 500ms cubic-bezier(.2,.9,.3,1); }
+
     .feature-icon {
       font-size: 2.5rem;
       color: var(--primary);
@@ -237,6 +266,10 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 25px var(--shadow);
     }
+
+    /* carousel smoothing */
+    .developer-carousel { perspective: 1000px; }
+    .carousel-item .developer-card { backface-visibility: hidden; }
 
     .developer-image {
       width: 120px;
@@ -343,6 +376,47 @@
       font-size: 1.2rem;
     }
 
+/* back-to-top */
+.back-to-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px) scale(.98);
+  transition: opacity 260ms ease, transform 260ms ease;
+  z-index: 120;
+}
+.back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); }
+
+/* Floating CTA */
+.floating-cta {
+  position: fixed;
+  right: 22px;
+  bottom: 88px;
+  background: linear-gradient(135deg,var(--secondary), #d9a82a);
+  color: var(--primary);
+  padding: 12px 16px;
+  border-radius: 999px;
+  box-shadow: 0 12px 30px rgba(139,44,44,0.12);
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  z-index: 119;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.floating-cta:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(139,44,44,0.16); }
+
     .testimonials {
       background-color: var(--background);
       text-align: center;
@@ -397,6 +471,39 @@
       font-weight: bold;
       color: var(--primary);
     }
+
+/* Carousel styles for developer cards */
+.developer-carousel {
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 0 3rem;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+  gap: 18px;
+  will-change: transform;
+}
+.carousel-item { transition: transform 260ms cubic-bezier(.2,.9,.3,1); }
+.carousel-item .developer-card:hover { transform: rotateX(4deg) rotateY(-6deg) translateY(-6px); }
+
+.testimonial-card { opacity: 0; transform: translateY(12px); }
+.testimonial-card.visible { opacity:1; transform: translateY(0); transition: all 520ms cubic-bezier(.2,.9,.3,1); }
+.carousel-item {
+  min-width: 280px;
+  flex: 0 0 280px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .carousel-item { min-width: 240px; flex: 0 0 240px; }
+}
+
+@media (max-width: 520px) {
+  .carousel-item { min-width: 100%; flex: 0 0 100%; }
+}
+
 
     .cta {
       background: linear-gradient(
